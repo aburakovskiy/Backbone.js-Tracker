@@ -6,7 +6,6 @@ window.TimelogEdit = Backbone.View.extend({
     },
 
     render:function (eventName) {
-        console.log(this.model);
         $(this.el).html(this.template({timelog: this.model}));
         return this;
     },
@@ -23,9 +22,12 @@ window.TimelogEdit = Backbone.View.extend({
 
     saveTimelog:function () {
         this.model.set({
+        	start_time: $('#strat_time').val(),
             name: $('#name').val(),
+            spent: $('#spent').val(),
             description: $('#description').val(),
         });
+        console.log(this.model);
         if (this.model.isNew()) {
             var self = this;
             app.timelogList.create(this.model, {
@@ -33,7 +35,7 @@ window.TimelogEdit = Backbone.View.extend({
                     console.log('Timelog Saved');
                     // Refresh
                     console.log(TimelogListView);
-                    app.navigate('/timelog/' + self.model.id, true);
+                    //app.navigate('/timelog/' + self.model.id, true);
                 }, 
                 error: function(model, response) {
                     alert(response.responseText);

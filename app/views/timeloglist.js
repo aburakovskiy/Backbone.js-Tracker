@@ -37,7 +37,8 @@ window.TimelogListView = Backbone.View.extend({
     sortDnIcon: 'glyphicon glyphicon-chevron-down',
     
     events: {
-    	"click th": "headerClick"
+    	"click th": "headerClick",
+    	"click .delete": "deleteTimelog"
     },
     
     headerClick: function(e) {
@@ -56,6 +57,21 @@ window.TimelogListView = Backbone.View.extend({
            $el.find('span').removeClass().addClass(this.sortDnIcon);
         }
         this.model.sortTimelogs(ns);
+     },
+     
+     deleteTimelog: function (e) {
+    	 var id = $(e.currentTarget).data("id");
+    	 var item = this.model.get(id);
+    	 item.destroy({
+             success:function () {
+                 app.navigate('/', true);
+             },
+             error: function(model, response) {
+                 alert(response.responseText);
+                 return false;
+             }
+         });
+         return false;
      },
      
      updateTable: function () {

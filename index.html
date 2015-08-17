@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>Tracker+</title>
     <link href="vendors/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="vendors/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" type="text/css" rel="stylesheet"  />
     <link href="css/styles.css" rel="stylesheet">
   </head>
 
@@ -19,7 +20,12 @@
 					<br /><br />
 					<form class="form-inline">
 						<div class="form-group">
-							<input type="datetime" class="form-control" id="strat_time" name="start_time" placeholder="DD/MM/YYYY">
+							<div class='input-group date' id='datetimepicker1'>
+								<input type="datetime" class="form-control" id="strat_time" name="start_time" placeholder="DD/MM/YYYY">
+								<span class="input-group-addon">
+                        			<span class="glyphicon glyphicon-calendar"></span>
+                    			</span>
+							</div>
 						</div>
 						<div class="form-group">
 							<input type="text" class="form-control" id="name" name="name" placeholder="Item Name" maxlength="30">
@@ -31,7 +37,7 @@
 							<div id="datetime"></div>
 						</div>
 						<div class="form-group">
-							<textarea class="form-control" rows="3"></textarea>
+							<textarea id="description" name="description" class="form-control" rows="3"></textarea>
 						</div>
 					</form>
 				</div>
@@ -44,7 +50,7 @@
 		<td><%= name %></td>
 		<td><%= spent %></td>
 		<td><%= description %></td>
-		<td></td>
+		<td><button type="button" data-id="<%= id %>" class="delete btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span></button></td>
 	</script>
 	
 	<script type="text/template" id="view"> 
@@ -108,14 +114,13 @@
         <div id="content"></div>
     </div>
 
-    
-
     <script type="text/javascript" src="vendors/jquery-1.11.3.min.js"></script>
     <script type="text/javascript" src="vendors/bootstrap/js/bootstrap.js"></script>
     <script type="text/javascript" src="vendors/underscore.js"></script>
     <script type="text/javascript" src="vendors/backbone.js"></script>
     <script type="text/javascript" src="vendors/backbone.localStorage.js"></script>
     <script type="text/javascript" src="vendors/moment.min.js"></script>
+    <script type="text/javascript" src="vendors/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
 
 	<script src="app/main.js"></script>
     <script src="app/utils.js"></script>
