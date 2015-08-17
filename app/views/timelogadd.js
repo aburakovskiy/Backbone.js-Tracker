@@ -2,7 +2,7 @@ window.TimelogAdd = Backbone.View.extend({
     initialize:function () {
         _.bindAll(this, 'change', 'saveTimelog');
         this.template = _.template(tpl.get('add'));
-        this.model.bind("change", this.render, this);
+        //this.model.bind("change", this.render, this);
     },
 
     render:function (eventName) {
@@ -29,7 +29,7 @@ window.TimelogAdd = Backbone.View.extend({
 
     saveTimelog:function () {
         this.model.set({
-        	start_time: $('#strat_time').val(),
+        	start_time: moment($('#strat_time').val()).unix(),
             name: $('#name').val(),
             spent: $('#spent').val(),
             description: $('#description').val(),
@@ -57,6 +57,7 @@ window.TimelogAdd = Backbone.View.extend({
                     return false;
                 }
             });
+        	this.reset();
             app.navigate('/', true);
         } else {
             this.model.save();
