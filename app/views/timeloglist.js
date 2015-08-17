@@ -16,7 +16,7 @@ window.TimelogListView = Backbone.View.extend({
     },
 
     render:function (eventName) {
-    	this.template = _.template(tpl.get('list'));
+    	this.template = _.template($('#list').html());
         $(this.el).html(this.template({timelogs: this.model.models}));
         
      // Setup the sort indicators
@@ -97,7 +97,7 @@ window.TimelogListItemView = Backbone.View.extend({
     tagName:"tr",
 
     initialize:function () {
-        this.template = _.template(tpl.get('item'));
+        this.template = _.template($('#item').html());
         this.model.bind("change", this.render, this);
         this.model.bind("destroy", this.close, this);
     },

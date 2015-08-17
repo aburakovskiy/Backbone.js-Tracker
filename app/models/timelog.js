@@ -53,15 +53,3 @@ window.TimelogCollection = Backbone.Collection.extend({
     	}
     }
 });
-
-TimelogCollection.bind('add', function() {
-	console.log('Timelog Collection Add');
-});
-
-TimelogCollection.bind('remove', function() {
-	console.log('Timelog Collection Remove');
-});
-
-TimelogCollection.bind('refresh', function() {
-	console.log('Timelog Collection Refresh');
-});

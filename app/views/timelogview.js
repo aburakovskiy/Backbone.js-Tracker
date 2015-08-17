@@ -1,6 +1,6 @@
 window.TimelogView = Backbone.View.extend({
     initialize:function () {
-        this.template = _.template(tpl.get('view'));
+        this.template = _.template($('#view').html());
         this.model.bind("change", this.render, this);
     },
 

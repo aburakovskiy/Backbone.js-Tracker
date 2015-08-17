@@ -1,7 +1,7 @@
 window.TimelogEdit = Backbone.View.extend({
     initialize:function () {
         _.bindAll(this, 'change', 'saveTimelog');
-        this.template = _.template(tpl.get('header-template'));
+        this.template = _.template($('#header-template').html());
         this.model.bind("change", this.render, this);
     },
 

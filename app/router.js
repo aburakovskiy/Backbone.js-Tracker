@@ -1,13 +1,3 @@
-// Destroy Views
-Backbone.View.prototype.close = function () {
-    console.log('Closing view ' + this);
-    if (this.beforeClose) {
-        this.beforeClose();
-    }
-    this.remove();
-    this.unbind();
-};
-
 // Backbone Router
 var AppRouter = Backbone.Router.extend({
     initialize:function () {
@@ -74,7 +64,5 @@ var AppRouter = Backbone.Router.extend({
 
 });
 
-tpl.loadTemplates(['add', 'details', 'item', 'list', 'view'], function () {
-    app = new AppRouter();
-    Backbone.history.start();
-});
+app = new AppRouter();
+Backbone.history.start();
