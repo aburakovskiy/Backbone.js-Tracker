@@ -11,7 +11,7 @@ Backbone.View.prototype.close = function () {
 // Backbone Router
 var AppRouter = Backbone.Router.extend({
     initialize:function () {
-        $('#header').html(new TimelogEdit({model:new Timelog()}).render().el);
+        $('#header').html(new TimelogAdd({model:new Timelog()}).render().el);
     },
 
     routes:{
@@ -74,7 +74,7 @@ var AppRouter = Backbone.Router.extend({
 
 });
 
-tpl.loadTemplates(['header-template', 'details', 'item', 'list', 'view'], function () {
+tpl.loadTemplates(['add', 'details', 'item', 'list', 'view'], function () {
     app = new AppRouter();
     Backbone.history.start();
 });

@@ -10,18 +10,19 @@
 
   <body>
 	
-	<script type="text/template" id="header-template"> 
+	<script type="text/template" id="add"> 
 		<div class="row">
 			<div class="panel panel-default">
 				<div class="panel-body">
 					Time Tracker
 					<button class="save btn btn-primary">Add Time Log</button>
-					<button class="btn btn-default">Reset</button>
+					<button class="reset btn btn-default">Reset</button>
 					<br /><br />
-					<form class="form-inline">
+					<form class="form-inline add-timelog">
+						<div class="alert alert-danger hidden" role="alert"></div>
 						<div class="form-group">
-							<div class='input-group date' id='datetimepicker1'>
-								<input type="datetime" class="form-control" id="strat_time" name="start_time" placeholder="DD/MM/YYYY">
+							<div class="input-group date" id="datetimepicker1">
+								<input type="datetime" class="form-control" id="strat_time" name="start_time" placeholder="Start date">
 								<span class="input-group-addon">
                         			<span class="glyphicon glyphicon-calendar"></span>
                     			</span>
@@ -37,7 +38,7 @@
 							<div id="datetime"></div>
 						</div>
 						<div class="form-group">
-							<textarea id="description" name="description" class="form-control" rows="3"></textarea>
+							<textarea id="description" name="description" class="form-control" rows="3" placeholder="Work description"></textarea>
 						</div>
 					</form>
 				</div>
@@ -120,6 +121,7 @@
     <script type="text/javascript" src="vendors/backbone.js"></script>
     <script type="text/javascript" src="vendors/backbone.localStorage.js"></script>
     <script type="text/javascript" src="vendors/moment.min.js"></script>
+    <script type="text/javascript" src="vendors/moment-duration-format.js"></script>
     <script type="text/javascript" src="vendors/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
 
 	<script src="app/main.js"></script>
@@ -127,6 +129,7 @@
     <script src="app/sampledata.js"></script>
     <script src="app/models/timelog.js"></script>
     <script src="app/views/header.js"></script>
+    <script src="app/views/timelogadd.js"></script>
     <script src="app/views/timeloglist.js"></script>
     <script src="app/views/timelogview.js"></script>
     <script src="app/views/timelogedit.js"></script>

@@ -9,8 +9,27 @@ window.Timelog = Backbone.Model.extend({
     
     parse: function (item) {
         item.start_time = moment.unix(item.start_time).format("DD/MM/YYYY h:mmA");
+
+        item.spent = moment.duration(item.spent, 'seconds').format();
+        
         return item;
     },
+    
+    validate: function (attrs) {
+        var errors = [];
+
+        if (!attrs.start_time) {
+            errors.push({name: 'start_time', message: 'Please fill start date field.'});
+        }
+        if (!attrs.name) {
+            errors.push({name: 'name', message: 'Please fill item name field.'});
+        }
+        if (!attrs.description) {
+            errors.push({name: 'description', message: 'Please fill description field.'});
+        }
+
+        return errors.length > 0 ? errors : false;
+    }
 });
 
 window.TimelogCollection = Backbone.Collection.extend({
