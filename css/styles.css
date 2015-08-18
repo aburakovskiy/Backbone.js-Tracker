@@ -8,3 +8,7 @@ body {
 
 #timelog-table th { white-space: nowrap; cursor: pointer; }
 #timelog-table th span { display: inline-block; margin-left: 5px; }
+
+#timelog-table .delete {
+	display: none;
+}

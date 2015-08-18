@@ -95,6 +95,11 @@ window.TimelogListView = Backbone.View.extend({
 window.TimelogListItemView = Backbone.View.extend({
 
     tagName:"tr",
+    
+    events: {
+    	"mouseenter": "showOptions",
+    	"mouseleave": "hideOptions",
+    },
 
     initialize:function () {
         this.template = _.template($('#item').html());
@@ -105,6 +110,14 @@ window.TimelogListItemView = Backbone.View.extend({
     render:function (eventName) {
         $(this.el).html(this.template(this.model.toJSON()));
         return this;
-    }
+    },
+    
+    showOptions: function() {
+    	$(this.el).find(".delete").show()
+    },
+
+    hideOptions: function() {
+    	$(this.el).find(".delete").hide();
+    },
 
 });
