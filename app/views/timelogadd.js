@@ -1,4 +1,5 @@
 window.TimelogAdd = Backbone.View.extend({
+	
     initialize:function () {
         _.bindAll(this, 'change', 'saveTimelog');
         this.template = _.template($('#add').html());
@@ -6,13 +7,9 @@ window.TimelogAdd = Backbone.View.extend({
     },
 
     render:function (eventName) {
+    	console.log('render add form');
         $(this.el).html(this.template({timelog: this.model}));
         this.$('#datetimepicker1').datetimepicker();
-        
-        datetime = this.$('#datetime');
-        update();
-        setInterval(update, 1000);
-        
         return this;
     },
 
@@ -20,6 +17,10 @@ window.TimelogAdd = Backbone.View.extend({
         "change input": "change",
         "click .save": "saveTimelog",
         "click .reset": "reset",
+        // Timer actions
+        "click .start": "startTimer",
+        "click .pause": "pauseTimer",
+        "click .stop": "stopTimer",
     },
 
     change:function (event) {
@@ -36,10 +37,8 @@ window.TimelogAdd = Backbone.View.extend({
         });
         
         if (this.model.isValid()) {
-        	console.log('valid');
         	this.hideErrors();
         } else {
-        	console.log('not valid');
         	this.showErrors(this.model.validationError);
         	return false;
         }
@@ -83,8 +82,60 @@ window.TimelogAdd = Backbone.View.extend({
         alert.addClass('hidden').html('');
     },
     
-    reset:function (event) {
+    reset: function (event) {
+    	this.model.clear();
     	this.render();
     },
+    
+    startTimer: function() {
+    	console.log('startTimer');
+    	
+    	this.model.set({
+        	start_time: moment(new Date()).format("YYYY-MM-DD HH:mm"),
+        });
+    	var self = this;
+    	this.timer = setInterval(function () {
+            self.tick(this.model);
+        }, 1000);
+    	this.render();
+    	
+    	this.$('#datetime').css('display', 'inline-block');
+    	this.$('.spent').addClass('hidden');
+    	this.$('.start').addClass('hidden');
+    	this.$('.pause').removeClass('hidden');
+    	this.$('.stop').removeClass('hidden');
+   	
+    },
+    
+    pauseTimer: function() {
+    	clearInterval(this.timer);
+    	console.log(this.model);
+    	this.render();
+    	this.$('#datetime').css('display', 'inline-block');
+    	this.$('.spent').removeClass('hidden');
+    	this.$('.start').removeClass('hidden');
+    	this.$('.pause').removeClass('hidden');
+    	this.$('.stop').removeClass('hidden');
+    }, 
+    
+    stopTimer: function() {
+    	clearInterval(this.timer);
+    	this.$('#datetime').hide();
+    	this.$('.spent').removeClass('hidden');
+    	this.$('.start').removeClass('hidden');
+    	this.$('.pause').addClass('hidden');
+    	this.$('.stop').addClass('hidden');
+    },
+    
+    tick: function () {
+    	var spent = parseInt(this.model.get('spent'));
+    	if (isNaN(spent)) spent = 0;
+    	spent = spent + 1;
+    	this.model.set({
+    		spent: spent
+    	});
+    	//console.log(this.model.spent);
+        this.$('#datetime').html(moment.duration(this.model.get('spent'), 'seconds').format("hh:mm:ss", { trim: false }));
+    }
 
 });

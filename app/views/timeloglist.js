@@ -4,7 +4,7 @@ window.TimelogListView = Backbone.View.extend({
 	_TimelogItemViews: [],
 
     initialize:function () {
-    	
+
         this.model.bind("reset", this.render, this);
         var self = this;
         this.model.bind("add", function (timelog) {
@@ -15,7 +15,8 @@ window.TimelogListView = Backbone.View.extend({
         this.listenTo(this.model, "sort", this.updateTable);
     },
 
-    render:function (eventName) {
+    render: function (eventName) {
+    	console.log('render list');
     	this.template = _.template($('#list').html());
         $(this.el).html(this.template({timelogs: this.model.models}));
         

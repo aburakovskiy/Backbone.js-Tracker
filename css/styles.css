@@ -12,3 +12,7 @@ body {
 #timelog-table .delete {
 	display: none;
 }
+
+#datetime {
+	display: none;
+}
