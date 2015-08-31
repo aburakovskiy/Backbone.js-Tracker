@@ -97,7 +97,7 @@ window.TimelogAdd = Backbone.View.extend({
     	this.timer = setInterval(function () {
             self.tick(this.model);
         }, 1000);
-    	this.render();
+    	//this.render();
     	
     	this.$('#datetime').css('display', 'inline-block');
     	this.$('.spent').addClass('hidden');
@@ -110,16 +110,17 @@ window.TimelogAdd = Backbone.View.extend({
     pauseTimer: function() {
     	clearInterval(this.timer);
     	console.log(this.model);
-    	this.render();
-    	this.$('#datetime').css('display', 'inline-block');
-    	this.$('.spent').removeClass('hidden');
+    	//this.render();
+    	//this.$('#datetime').css('display', 'inline-block');
+    	//this.$('.spent').removeClass('hidden');
     	this.$('.start').removeClass('hidden');
-    	this.$('.pause').removeClass('hidden');
+    	this.$('.pause').addClass('hidden');
     	this.$('.stop').removeClass('hidden');
     }, 
     
     stopTimer: function() {
     	clearInterval(this.timer);
+    	this.render();
     	this.$('#datetime').hide();
     	this.$('.spent').removeClass('hidden');
     	this.$('.start').removeClass('hidden');

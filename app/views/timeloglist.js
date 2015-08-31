@@ -63,9 +63,12 @@ window.TimelogListView = Backbone.View.extend({
      deleteTimelog: function (e) {
     	 var id = $(e.currentTarget).data("id");
     	 var item = this.model.get(id);
+    	 var self = this;
     	 item.destroy({
              success:function () {
                  app.navigate('/', true);
+                 self.updateTable();
+                 console.log('success deleted');
              },
              error: function(model, response) {
                  alert(response.responseText);
@@ -114,11 +117,13 @@ window.TimelogListItemView = Backbone.View.extend({
     },
     
     showOptions: function() {
-    	$(this.el).find(".delete").show()
+    	$(this.el).find(".delete").show();
+    	$(this.el).find(".edit").show();
     },
 
     hideOptions: function() {
     	$(this.el).find(".delete").hide();
+    	$(this.el).find(".edit").hide();
     },
 
 });

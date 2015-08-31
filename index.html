@@ -32,7 +32,7 @@
 							<input type="text" class="form-control" id="name" name="name" placeholder="Item Name" maxlength="30" value="<%= timelog.get('name') %>">
 						</div>
 						<div class="form-group spent">
-							<input type="datetime" class="form-control" id="spent" name="spent" placeholder="Time spent (hh:mm:ss)" value="<%= timelog.get('spent') %>">
+							<input type="datetime" class="form-control" id="spent" name="spent" placeholder="Time spent (hh:mm:ss)" value="<%= moment.duration(timelog.get('spent'), 'seconds').format("hh:mm:ss", { trim: false }) %>">
 						</div>
 						<div class="form-group">
 							<div id="datetime"></div>
@@ -54,7 +54,10 @@
 		<td><%= name %></td>
 		<td><%= spent %></td>
 		<td><%= description %></td>
-		<td><button type="button" data-id="<%= id %>" class="delete btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span></button></td>
+		<td>
+			<button type="button" data-id="<%= id %>" class="delete btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span></button>
+			<button type="button" data-id="<%= id %>" class="edit btn btn-xs btn-warning"><span class="glyphicon glyphicon-edit"></span></button>
+		</td>
 	</script>
 	
 	<script type="text/template" id="view"> 
@@ -87,7 +90,7 @@
 						<th column="name">Name</th>
 						<th column="spent">Time Spent</th>
 						<th column="description">Description</th>
-						<th>&nbsp;</th>
+						<th width="70px">&nbsp;</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -130,6 +133,7 @@
 	<script src="app/main.js"></script>
     <script src="app/sampledata.js"></script>
     <script src="app/models/timelog.js"></script>
+    <script src="app/models/timer.js"></script>
     <script src="app/views/timelogadd.js"></script>
     <script src="app/views/timeloglist.js"></script>
     <script src="app/views/timelogview.js"></script>
