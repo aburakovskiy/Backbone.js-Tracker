@@ -46,7 +46,7 @@
 					</form>
 				</div>
 			</div>
-		</div> 
+		</div>
 	</script>
 	
 	<script type="text/template" id="item"> 
@@ -100,15 +100,39 @@
 			</div>
 		</div>
 	</script>
+	
+	<script type="text/template" id="analytics">
+		<div class="row">
+			<h3>Time Aggregation</h3>
+			<div class="span12">
+				<table class="table table-striped table-bordered" id="analitycs-table">
+				<thead>
+					<tr>
+						<th column="date">Date</th>
+						<th column="spent">Time Spent</th>
+					</tr>
+				</thead>
+				<tbody>
+
+				</tbody>
+				</table>
+			</div>
+		</div>
+	</script>
+	
+	<script type="text/template" id="analytics-item"> 
+		<td><%= date %></td>
+		<td><%= spent %></td>
+	</script>
 
     <div class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container">
 			<a class="navbar-brand" href="#/">Tracker+</a>
 		    <div class="collapse navbar-collapse">
-		      <ul class="nav navbar-nav">
-		        <li class="active"><a href="#">Log entries</a></li>
-		        <li><a class="analytics" href="#">Analytics</a></li>
-		        <li><a class="settings" href="#">Settings</a></li>
+		      <ul id="menu" class="nav navbar-nav">
+		        <li class="list"><a href="#">Log entries</a></li>
+		        <li class="analytics"><a href="#/analytics">Analytics</a></li>
+		        <li class="settings"><a href="#">Settings</a></li>
 		      </ul>
 		    </div>
         </div>
@@ -134,10 +158,12 @@
     <script src="app/sampledata.js"></script>
     <script src="app/models/timelog.js"></script>
     <script src="app/models/timer.js"></script>
+    <script src="app/models/analytics.js"></script>
     <script src="app/views/timelogadd.js"></script>
     <script src="app/views/timeloglist.js"></script>
     <script src="app/views/timelogview.js"></script>
     <script src="app/views/timelogedit.js"></script>
+    <script src="app/views/analytics.js"></script>
     <script src="app/router.js"></script>
     
   </body>
