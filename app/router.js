@@ -53,9 +53,6 @@ var AppRouter = Backbone.Router.extend({
     },
 
     showView:function (selector, view) {
-    	//if (this.currentView) {
-        //    this.currentView.close();
-        //}
         $(selector).html(view.render().el);
         this.currentView = view;
         return view;
@@ -69,9 +66,37 @@ var AppRouter = Backbone.Router.extend({
     analytics: function() {
     	console.log('analytics');
         
-    	this.analytics = new AnalyticsCollection();
-        this.analyticsTableView = new AnalyticsTableView({model:this.analytics});
-        console.log(this.analyticsTableView);
+    	this.timelogList = new TimelogCollection();
+        this.timelogList.fetch();
+    	
+        var self = this;
+        self.analytics = new AnalyticsCollection();
+        
+        var logs = this.timelogList.models;
+        _.each(logs, function(model, index, list){
+        	
+        	var date = moment(model.get("start_time"), "DD/MM/YYYY h:mmA").format("DD/MM/YYYY");
+        	
+        	var spent = moment.duration(model.get("spent"), "hh:mm:ss").asSeconds();
+        	console.log(model.get("start_time"), date, spent);
+        	
+            var analytics_row = self.analytics.getByDate(date);
+            if (typeof(analytics_row) == 'undefined') {
+            	analytics_row = new Analytics({
+            		"date":date,
+            		"spent":spent
+            	//}, {parse: true});
+            	});
+            	self.analytics.add(analytics_row);
+            } else {
+            	analytics_row.set({
+                	spent: (analytics_row.get('spent') + spent),
+                });
+            }
+        });
+    	
+    	
+        this.analyticsTableView = new AnalyticsTableView({model:self.analytics});
 
         $('#header').html('');
     	app.showView('#content', this.analyticsTableView);

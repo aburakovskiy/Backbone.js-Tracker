@@ -1,16 +1,15 @@
 window.AnalyticsTableView = Backbone.View.extend({
 
-	//tagName: 'table',
-	_TimelogItemViews: [],
-
     initialize:function () {
-        var self = this;
-        //this.model.on('change', this.render, this);
+        this.model.on('change', this.render, this);
     },
 
     render: function (eventName) {
     	this.template = _.template($('#analytics').html());
         $(this.el).html(this.template());
+        _.each(this.model.models, function(data) {
+        	this.$('tbody').append(new AnalyticsTableItemView({model : data}).render().el);
+        }, this);
         return this;
     },
     
