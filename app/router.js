@@ -11,6 +11,7 @@ var AppRouter = Backbone.Router.extend({
         "timelog/:id": "viewTimelog",
         "": "list",
         "analytics": "analytics",
+        "analytics/:group/:period": "analytics",
     },
 
     list:function () {
@@ -63,8 +64,11 @@ var AppRouter = Backbone.Router.extend({
         this.timelogListView = new TimelogListView({model:this.timelogList});
     },
     
-    analytics: function() {
-    	console.log('analytics');
+    analytics: function(group, period) {
+    	console.log('analytics', group, period);
+    	if (typeof(group) == 'undefined' || typeof(period) == 'undefined') {
+    		//app.navigate('/analytics/day/week', true);
+    	}
         
     	this.timelogList = new TimelogCollection();
         this.timelogList.fetch();
@@ -96,7 +100,11 @@ var AppRouter = Backbone.Router.extend({
         });
     	
     	
-        this.analyticsTableView = new AnalyticsTableView({model:self.analytics});
+        this.analyticsTableView = new AnalyticsTableView({
+        	model:self.analytics,
+        	group:group,
+        	period:period
+        });
 
         $('#header').html('');
     	app.showView('#content', this.analyticsTableView);
@@ -113,7 +121,7 @@ var AppRouter = Backbone.Router.extend({
 	    route = route.replace('route:', '');
 	
 	    $el = $('#menu .' + route);
-	    //console.log('#menu .' + route, $el.length);
+	    //console.log(route);
 	    if (!$el.length) return;
 	
 	    if ($el.hasClass('active')) {

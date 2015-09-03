@@ -108,7 +108,18 @@
 				<li><a href="#/analytics"><span class="glyphicon glyphicon-list"></span></a></li>
 				<li><a href="#/analytics/chart"><span class="glyphicon glyphicon-stats"></span></a></li>
 			</ul>
-
+			<div style="clear:both"></div>
+			<ul class="analytics-filter pull-right">
+				<li>Group by: </li>
+				<li class="separator"><a class="group-day" href="#/analytics/day/<%= period %>">Day</a></li>
+				<li><a class="group-week" href="#/analytics/week/<%= period %>">Week</a></li>
+			</ul>
+			<ul class="analytics-filter pull-left">
+				<li>Period: </li>
+				<li class="separator"><a class="period-week" href="#/analytics/<%= group %>/week">7 days</a></li>
+				<li class="separator"><a class="period-month" href="#/analytics/<%= group %>/month">Month</a></li>
+				<li><a class="period-quarter" href="#/analytics/<%= group %>/quarter">3 months</a></li>
+			</ul>
 			<div class="span12">
 				<table class="table table-striped table-bordered" id="analitycs-table">
 				<thead>

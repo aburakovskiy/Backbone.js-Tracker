@@ -17,3 +17,18 @@ body {
 #datetime {
 	display: none;
 }
+
+.analytics-filter {
+	list-style: none;
+	padding: 0;
+}
+.analytics-filter li {
+	display: inline-block;
+	padding: 0 10px 0 5px;
+}
+.analytics-filter li.separator {
+	border-right: 2px solid #333;
+}
+.analytics-filter li a.active {
+	color: #333;
+}

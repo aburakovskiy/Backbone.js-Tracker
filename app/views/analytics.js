@@ -1,15 +1,26 @@
 window.AnalyticsTableView = Backbone.View.extend({
 
-    initialize:function () {
+    initialize:function (options) {
         this.model.on('change', this.render, this);
+        this.group = options.group;
+        this.period = options.period;
     },
 
     render: function (eventName) {
     	this.template = _.template($('#analytics').html());
-        $(this.el).html(this.template());
+    	//this.template();
+        $(this.el).html(this.template({
+    		period:this.period,
+    		group:this.group
+    	}));
         _.each(this.model.models, function(data) {
         	this.$('tbody').append(new AnalyticsTableItemView({model : data}).render().el);
         }, this);
+
+        this.$(".analytics-filter a.active").removeClass("active");
+    	this.$(".analytics-filter .group-" + this.group).addClass("active");
+    	this.$(".analytics-filter .period-" + this.period).addClass("active");
+        
         return this;
     },
     
