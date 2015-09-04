@@ -20,13 +20,8 @@ var AppRouter = Backbone.Router.extend({
         $('#header').html(new TimelogAdd({model:new Timelog()}).render().el);
         
         //this.timelogList = new TimelogCollection(TimelogData);
-        
         this.timelogList = new TimelogCollection();
         this.timelogList.fetch();
-        
-        /*var timelog = new Timelog({"start_time":1439664115, "spent":4600, "name":"Name 2", "description":"Description 2"});
-        this.timelogList.add(timelog);
-        timelog.save();*/
         
         this.timelogListView = new TimelogListView({model:this.timelogList});
         console.log('Timelog List: ', this.timelogList);
@@ -67,7 +62,8 @@ var AppRouter = Backbone.Router.extend({
     analytics: function(group, period) {
     	console.log('analytics', group, period);
     	if (typeof(group) == 'undefined' || typeof(period) == 'undefined') {
-    		//app.navigate('/analytics/day/week', true);
+    		app.navigate('/analytics/day/week', true);
+    		return false;
     	}
         
     	this.timelogList = new TimelogCollection();
@@ -79,7 +75,31 @@ var AppRouter = Backbone.Router.extend({
         var logs = this.timelogList.models;
         _.each(logs, function(model, index, list){
         	
-        	var date = moment(model.get("start_time"), "DD/MM/YYYY h:mmA").format("DD/MM/YYYY");
+        	var startdate = moment();
+        	switch (period) {
+        		case "week":
+        			startdate = startdate.subtract(1, "week");
+        			break;
+        		case "month":
+        			startdate = startdate.subtract(1, "month");
+        			break;
+        		case "quarter":
+        			startdate = startdate.subtract(3, "months");
+        			break;
+        	}
+        	startdate = startdate.format("DD-MM-YYYY 00:00:00");
+        	console.log(model.start_time);
+        	if (moment(model.get("start_time"), "DD/MM/YYYY hh:mm:ss").isBefore(startdate)) {
+        		return;
+        	}
+        	
+        	switch (group) {
+        		case "week":
+        			var date = moment(model.get("start_time"), "DD/MM/YYYY h:mmA").isoWeek();
+        			break;
+        		default:
+        			var date = moment(model.get("start_time"), "DD/MM/YYYY h:mmA").format("DD/MM/YYYY");
+        	}
         	
         	var spent = moment.duration(model.get("spent"), "hh:mm:ss").asSeconds();
         	console.log(model.get("start_time"), date, spent);
@@ -98,7 +118,6 @@ var AppRouter = Backbone.Router.extend({
                 });
             }
         });
-    	
     	
         this.analyticsTableView = new AnalyticsTableView({
         	model:self.analytics,

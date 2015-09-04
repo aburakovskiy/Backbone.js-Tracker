@@ -8,7 +8,6 @@ window.AnalyticsTableView = Backbone.View.extend({
 
     render: function (eventName) {
     	this.template = _.template($('#analytics').html());
-    	//this.template();
         $(this.el).html(this.template({
     		period:this.period,
     		group:this.group
