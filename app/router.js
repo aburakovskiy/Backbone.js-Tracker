@@ -87,9 +87,7 @@ var AppRouter = Backbone.Router.extend({
         			startdate = startdate.subtract(3, "months");
         			break;
         	}
-        	startdate = startdate.format("DD-MM-YYYY 00:00:00");
-        	console.log(model.start_time);
-        	if (moment(model.get("start_time"), "DD/MM/YYYY hh:mm:ss").isBefore(startdate)) {
+        	if (moment(model.get("start_time"), "DD/MM/YYYY hh:mm:ss").isBefore(startdate.format())) {
         		return;
         	}
         	
