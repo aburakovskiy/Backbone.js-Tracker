@@ -60,7 +60,7 @@ var AppRouter = Backbone.Router.extend({
     },
     
     analytics: function(group, period) {
-    	console.log('analytics', group, period);
+    	// redirect to default filters
     	if (typeof(group) == 'undefined' || typeof(period) == 'undefined') {
     		app.navigate('/analytics/day/week', true);
     		return false;
@@ -93,19 +93,25 @@ var AppRouter = Backbone.Router.extend({
         	
         	switch (group) {
         		case "week":
+        			var date_parsed = moment(model.get("start_time"), "DD/MM/YYYY h:mmA").startOf('isoweek').format("DD/MM/YYYY") + " - " + moment(model.get("start_time"), "DD/MM/YYYY h:mmA").endOf('isoweek').format("DD/MM/YYYY");
         			var date = moment(model.get("start_time"), "DD/MM/YYYY h:mmA").isoWeek();
+        			//console.log(moment(model.get("start_time"), "DD/MM/YYYY h:mmA").startOf('isoweek').format("DD/MM/YYYY"));
         			break;
         		default:
-        			var date = moment(model.get("start_time"), "DD/MM/YYYY h:mmA").format("DD/MM/YYYY");
+        			//var date = moment(model.get("start_time"), "DD/MM/YYYY h:mmA").format("DD/MM/YYYY");
+        			var date_parsed = moment(model.get("start_time"), "DD/MM/YYYY h:mmA").format("DD/MM/YYYY");
+        			var date = moment(date_parsed, "DD/MM/YYYY").unix();
+        		
         	}
         	
         	var spent = moment.duration(model.get("spent"), "hh:mm:ss").asSeconds();
-        	console.log(model.get("start_time"), date, spent);
+        	//console.log(model.get("start_time"), date, spent);
         	
             var analytics_row = self.analytics.getByDate(date);
             if (typeof(analytics_row) == 'undefined') {
             	analytics_row = new Analytics({
             		"date":date,
+            		"date_parsed":date_parsed,
             		"spent":spent
             	//}, {parse: true});
             	});

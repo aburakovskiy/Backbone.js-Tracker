@@ -12,6 +12,7 @@ window.AnalyticsTableView = Backbone.View.extend({
     		period:this.period,
     		group:this.group
     	}));
+        this.model.sortAnalytics();
         _.each(this.model.models, function(data) {
         	this.$('tbody').append(new AnalyticsTableItemView({model : data}).render().el);
         }, this);
