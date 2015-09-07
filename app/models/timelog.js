@@ -8,7 +8,8 @@ window.Timelog = Backbone.Model.extend({
     },
     
     parse: function (item) {
-        item.start_time = moment.unix(item.start_time).format("DD/MM/YYYY h:mmA");
+    	console.log(app.timezone);
+        item.start_time = moment(item.start_time * 1000).tz(app.timezone).format("DD/MM/YYYY h:mmA");
         //item.spent = moment.duration(parseInt(item.spent), 'seconds').format("hh:mm:ss", { trim: false });       
         return item;
     },

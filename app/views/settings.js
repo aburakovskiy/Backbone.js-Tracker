@@ -44,7 +44,7 @@ window.SettingsView = Backbone.View.extend({
         return html;
     },
     
-    selectValue : function(value){
+    selectValue: function(value){
         value = value || this.currentTimezone;
 
         var match = this.$('select').find('option[value="' + value + '"]');
@@ -53,6 +53,19 @@ window.SettingsView = Backbone.View.extend({
         }
 
         return this.$('select');
+    },
+    
+    events: {
+    	"change select": "selectTZ"
+    },
+    
+    selectTZ: function(e) {
+    	var $el = $(e.currentTarget);
+    	this.model.set({
+        	tz: $el.val(),
+        });
+    	this.model.save();
+    	this.selectValue($el.val());
     }
     
 });

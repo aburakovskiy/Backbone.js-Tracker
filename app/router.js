@@ -1,8 +1,10 @@
 // Backbone Router
 var AppRouter = Backbone.Router.extend({
 
+	timezone: null,
+	
     initialize:function () {
-        
+    	this.init_tz();
     },
 
     routes:{
@@ -14,8 +16,18 @@ var AppRouter = Backbone.Router.extend({
         "analytics/:group/:period": "analytics",
         "settings": "settings"
     },
+    
+    init_tz: function() {
+    	var settings = new Backbone.LocalStorage("Settings");
+    	if (settings.find({id:1}) == null) {
+    		var model = new Settings();
+    		model.save();
+    	}
+        this.timezone = settings.find({id:1}).tz;
+    },
 
     list:function () {
+    	this.init_tz();
         console.log('List Route');
 
         $('#header').html(new TimelogAdd({model:new Timelog()}).render().el);
@@ -133,11 +145,10 @@ var AppRouter = Backbone.Router.extend({
     },
     
     settings:function () {
-
+    	console.log(this.timezone);
     	this.settings_row = new Settings();
         this.settings_row.fetch();
-        
-        console.log(this.settings_row.get('tz'));
+        //console.log(this.settings_row.get('tz'));
         
         $('#header').html('');
         app.showView('#content', new SettingsView({model:this.settings_row}));
