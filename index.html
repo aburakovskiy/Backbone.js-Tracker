@@ -137,6 +137,22 @@
 		</div>
 	</script>
 	
+	<script type="text/template" id="settings"> 
+		<div class="row">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					Date Format
+					<form class="form-inline settings">
+						<div class="alert alert-danger hidden" role="alert"></div>
+						<div class="form-group">
+							<select class="form-control"></select>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</script>
+	
 	<script type="text/template" id="analytics-item"> 
 		<td><%= date_parsed %></td>
 		<td><%= moment.duration(parseInt(spent), 'seconds').format("hh:mm:ss", { trim: false }) %></td>
@@ -149,12 +165,11 @@
 		      <ul id="menu" class="nav navbar-nav">
 		        <li class="list"><a href="#">Log entries</a></li>
 		        <li class="analytics"><a href="#/analytics">Analytics</a></li>
-		        <li class="settings"><a href="#">Settings</a></li>
+		        <li class="settings"><a href="#/settings">Settings</a></li>
 		      </ul>
 		    </div>
         </div>
     </div>
-
 
     <div class="container" id="container">
         <div id="header"></div>
@@ -169,6 +184,7 @@
     <script type="text/javascript" src="vendors/backbone.localStorage.js"></script>
     <script type="text/javascript" src="vendors/moment.min.js"></script>
     <script type="text/javascript" src="vendors/moment-duration-format.js"></script>
+    <script type="text/javascript" src="vendors/moment-timezone-with-data.min.js"></script>
     <script type="text/javascript" src="vendors/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
 
 	<script src="app/main.js"></script>
@@ -176,11 +192,13 @@
     <script src="app/models/timelog.js"></script>
     <script src="app/models/timer.js"></script>
     <script src="app/models/analytics.js"></script>
+    <script src="app/models/settings.js"></script>
     <script src="app/views/timelogadd.js"></script>
     <script src="app/views/timeloglist.js"></script>
     <script src="app/views/timelogview.js"></script>
     <script src="app/views/timelogedit.js"></script>
     <script src="app/views/analytics.js"></script>
+    <script src="app/views/settings.js"></script>
     <script src="app/router.js"></script>
     
   </body>

@@ -12,6 +12,7 @@ var AppRouter = Backbone.Router.extend({
         "": "list",
         "analytics": "analytics",
         "analytics/:group/:period": "analytics",
+        "settings": "settings"
     },
 
     list:function () {
@@ -95,10 +96,8 @@ var AppRouter = Backbone.Router.extend({
         		case "week":
         			var date_parsed = moment(model.get("start_time"), "DD/MM/YYYY h:mmA").startOf('isoweek').format("DD/MM/YYYY") + " - " + moment(model.get("start_time"), "DD/MM/YYYY h:mmA").endOf('isoweek').format("DD/MM/YYYY");
         			var date = moment(model.get("start_time"), "DD/MM/YYYY h:mmA").isoWeek();
-        			//console.log(moment(model.get("start_time"), "DD/MM/YYYY h:mmA").startOf('isoweek').format("DD/MM/YYYY"));
         			break;
         		default:
-        			//var date = moment(model.get("start_time"), "DD/MM/YYYY h:mmA").format("DD/MM/YYYY");
         			var date_parsed = moment(model.get("start_time"), "DD/MM/YYYY h:mmA").format("DD/MM/YYYY");
         			var date = moment(date_parsed, "DD/MM/YYYY").unix();
         		
@@ -131,8 +130,19 @@ var AppRouter = Backbone.Router.extend({
 
         $('#header').html('');
     	app.showView('#content', this.analyticsTableView);
-    }
+    },
+    
+    settings:function () {
 
+    	this.settings_row = new Settings();
+        this.settings_row.fetch();
+        
+        console.log(this.settings_row.get('tz'));
+        
+        $('#header').html('');
+        app.showView('#content', new SettingsView({model:this.settings_row}));
+    },
+    
 });
 
 
